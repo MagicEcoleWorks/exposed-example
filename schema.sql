@@ -33,7 +33,7 @@ CREATE TABLE `com_code_group_history` (
                                           `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시|수정일시|',
                                           PRIMARY KEY (`code_group_id`,`code_validity_start_date`),
                                           CONSTRAINT `com_code_group_history_fk01` FOREIGN KEY (`code_group_id`) REFERENCES `com_code_group` (`code_group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통코드그룹이력';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통dj코드그룹이력';
 
 
 CREATE TABLE `com_code` (
