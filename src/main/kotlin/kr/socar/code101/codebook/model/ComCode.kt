@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 class ComCode(id: EntityID<Int>) : IntEntity(id){
     companion object : IntEntityClass<ComCode>(ComCodes)
 
-    var codeGroupID by ComCodeGroup referencedOn ComCodes.codeGroupID
+    var codeGroupId by ComCodeGroup referencedOn ComCodes.codeGroupId
     var codeId by ComCodeInfo referencedOn ComCodes.codeId
     var useYN by ComCodes.useYN
     var sortingNum by ComCodes.sortingNum

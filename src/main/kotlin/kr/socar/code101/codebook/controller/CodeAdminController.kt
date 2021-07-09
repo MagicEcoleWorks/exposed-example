@@ -66,12 +66,11 @@ class CodeAdminController(
         return """{...}"""
     }
 
-
     //com_code CRD
     @GetMapping("/com_code/findAll")
     fun fetchComCode() : String = transaction(database) {
         return@transaction "[ " + ComCodeRepository.findAll()
-            .joinToString { "{ codeGroupID: ${it.codeGroupID}, code_id:${it.id.value}, useYN: ${it.useYN}, sortingNum: ${it.sortingNum}, created:${it.createdAt}, updated:${it.updatedAt} } <br>".trimMargin() } + " ]"
+            .joinToString { "{ codeGroupId: ${it.codeGroupId}, code_id:${it.id.value}, useYN: ${it.useYN}, sortingNum: ${it.sortingNum}, created:${it.createdAt}, updated:${it.updatedAt} } <br>".trimMargin() } + " ]"
     }
 
     @GetMapping("/com_code/new")
@@ -81,8 +80,20 @@ class CodeAdminController(
         @RequestParam useYN: Int,
         @RequestParam sortingNum: Int
     ) : String = transaction(database) {
-            return
+            val result = ComCodeRepository.insert(codeGroupId, codeId, useYN, sortingNum)
+            return@transaction "codeGroupId: ${result.codeGroupId}, code_id:${result.id.value}, useYN: ${result.useYN}, sortingNum: ${result.sortingNum}, created:${result.createdAt}, updated:${result.updatedAt}"
     }
+
+    @GetMapping("/com_code/delete")
+    fun deleteComCode(
+        @RequestParam codeGroupId :String,
+        @RequestParam codeId : Int
+    ) : String = transaction(database) {
+        return@transaction "[ " + ComCodeRepository.delete(codeGroupId, codeId)
+            .joinToString { "{ codeGroupId: ${it.codeGroupId}, code_id:${it.id.value}, useYN: ${it.useYN}, sortingNum: ${it.sortingNum}, created:${it.createdAt}, updated:${it.updatedAt} } <br>".trimMargin() } + " ]"
+    }
+
+
 
     //com_code_group_history CR
 

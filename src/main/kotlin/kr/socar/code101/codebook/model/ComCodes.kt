@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.time.LocalDateTime
 
 object ComCodes : IntIdTable() {
-    val codeGroupID = reference("codeGroupId", ComCodeGroups)
+    val codeGroupId = reference("codeGroupId", ComCodeGroups)
     val codeId = reference("code_id", ComCodeInfos)
 
     val useYN: Column<Int> = integer("use_yn")

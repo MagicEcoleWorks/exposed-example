@@ -39,6 +39,6 @@ class ComCodeInfoRepository(private val clock: Clock) {
         val one = ComCodeInfo.wrapRows(query).firstOrNull()
         one?.description = description
         one?.updatedAt = now
-        return "done"
+        return findOne(id)
     }
 }
