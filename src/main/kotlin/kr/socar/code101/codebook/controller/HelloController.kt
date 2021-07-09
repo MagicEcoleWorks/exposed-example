@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
+//@RestController
 class HelloController(
     private val repository: ComCodeInfoRepository,
     private val database: Database
@@ -26,12 +26,12 @@ class HelloController(
             .joinToString { "id: ${it.id.value} name: ${it.codeName}<br />" }
     }
 
-    @GetMapping("/insert")
+   /* @GetMapping("/insert")
     fun insert(
         @RequestParam("n") name: String,
         @RequestParam("d") desc: String?
     ): String = transaction(database) {
         val r = repository.insert(name, desc)
         return@transaction "id: ${r.id.value}, name: ${r.codeName}, created: ${r.createdAt}"
-    }
+    }*/
 }
