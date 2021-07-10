@@ -14,5 +14,4 @@ class ComCodeGroup(id: EntityID<String>) : Entity<String>(id) {
     var codeGroupDescription by ComCodeGroups.codeGroupDescription
     var createdAt by ComCodeGroups.createdAt
     var updatedAt by ComCodeGroups.updatedAt
-
 }

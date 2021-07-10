@@ -9,7 +9,6 @@ import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.time.LocalDateTime
 
-
 object ComCodeGroups : IdTable<String>("com_code_group") {
     val codeGroupId: Column<String> = varchar("code_group_id", 4)
     val codeGroupName : Column<String>  = varchar("code_group_name", 50).uniqueIndex()
