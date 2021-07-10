@@ -1,5 +1,8 @@
 package kr.socar.code101.codebook.model
 
+import kr.socar.code101.codebook.model.ComCodeInfos.default
+import kr.socar.code101.codebook.model.ComCodeInfos.nullable
+import kr.socar.code101.codebook.model.ComCodeInfos.uniqueIndex
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.sql.Column

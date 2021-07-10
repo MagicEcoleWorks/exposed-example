@@ -12,13 +12,15 @@ import java.time.LocalDateTime
 
 @Repository
 class ComCodeInfoRepository(private val clock: Clock) {
+    val now = LocalDateTime.now(clock)
+
     fun findAll(): List<ComCodeInfo> {
         val query = ComCodeInfos.selectAll()
         return ComCodeInfo.wrapRows(query).toList()
     }
 
     fun insert(codeName: String, description: String? = null): ComCodeInfo {
-        val now = LocalDateTime.now(clock)
+
         return ComCodeInfo.new {
             this.codeName = codeName
             this.description = description
@@ -34,7 +36,6 @@ class ComCodeInfoRepository(private val clock: Clock) {
     }
 
     fun update(id: Int, description: String? = null): String?{
-        val now = LocalDateTime.now(clock)
         val query = ComCodeInfos.select { ComCodeInfos.id eq id }
         val one = ComCodeInfo.wrapRows(query).firstOrNull()
         one?.description = description

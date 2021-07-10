@@ -4,6 +4,7 @@ import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
+
 class ComCodeGroup(id: EntityID<String>) : Entity<String>(id) {
     companion object : EntityClass<String, ComCodeGroup>(ComCodeGroups)
 
@@ -13,5 +14,4 @@ class ComCodeGroup(id: EntityID<String>) : Entity<String>(id) {
     var codeGroupDescription by ComCodeGroups.codeGroupDescription
     var createdAt by ComCodeGroups.createdAt
     var updatedAt by ComCodeGroups.updatedAt
-
 }
