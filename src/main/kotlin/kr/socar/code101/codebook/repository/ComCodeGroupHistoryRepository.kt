@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
 
-
 @Repository
 class ComCodeGroupHistoryRepository(private val clock: Clock) {
     val now = LocalDateTime.now(clock)

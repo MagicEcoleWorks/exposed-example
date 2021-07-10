@@ -18,7 +18,7 @@ class CodeAdminController(
     private val comCodeGroupHistoryRepository: ComCodeGroupHistoryRepository,
     private val database: Database
 ) {
-    //com_code_info CRU
+    // com_code_info CRU
     @GetMapping("/com_code_info/new")
     fun createNewComCodeInfo(
         @RequestParam("code_name") codeName: String,
@@ -47,7 +47,7 @@ class CodeAdminController(
         return@transaction ComCodeInfoRepository.update(id, description)
     }
 
-    //com_code_group_history CR
+    // com_code_group_history CR
     @GetMapping("/com_code_group_history/new")
     fun createNewComCodeGroupHistory(
         @RequestParam("id") id: String,
@@ -59,7 +59,7 @@ class CodeAdminController(
             "created_at:${r.createdAt}, updated_at:${r.updatedAt}"
     }
 
-    //com_code_group CRUD
+    // com_code_group CRUD
     @GetMapping("/comCodeGroupFind")
     fun comCodeGroupFind(): String = transaction(database) {
         val result = comCodeGroupRepository.findAll()
@@ -85,7 +85,7 @@ class CodeAdminController(
             }
     }
 
-    //com_code CRD
+    // com_code CRD
     @GetMapping("/com_code/findAll")
     fun fetchComCode(): String = transaction(database) {
         return@transaction "[ " + ComCodeRepository.findAll()
@@ -112,5 +112,5 @@ class CodeAdminController(
             .joinToString { "{ codeGroupId: ${it.codeGroupId}, code_id:${it.id.value}, useYN: ${it.useYN}, sortingNum: ${it.sortingNum}, created:${it.createdAt}, updated:${it.updatedAt} } <br>".trimMargin() } + " ]"
     }
 
-    //com_code_group_history CR
+    // com_code_group_history CR
 }

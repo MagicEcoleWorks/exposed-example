@@ -5,7 +5,6 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import java.time.LocalDateTime
 
-
 class ComCodeInfo(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<ComCodeInfo>(ComCodeInfos)
 
