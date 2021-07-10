@@ -1,9 +1,7 @@
 package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.model.ComCodeInfo
-import kr.socar.code101.codebook.model.ComCodeInfos
-import org.jetbrains.exposed.sql.Query
-import org.jetbrains.exposed.sql.idParam
+import kr.socar.code101.codebook.infra.ComCodeInfos
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
