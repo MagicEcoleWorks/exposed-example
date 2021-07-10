@@ -17,19 +17,13 @@ class ComCodeGroupHistoryRepository(private val clock: Clock) {
         return ComCodeGroupHistory.wrapRows(query).toList()
     }
 
-
-    fun insert(id: String, codeGroupName: String): ComCodeGroupHistory{
-
-        return ComCodeGroupHistory.new(id){
+    fun insert(id: String, codeGroupName: String): ComCodeGroupHistory {
+        return ComCodeGroupHistory.new(id) {
             this.validityStartDate = now
-            this.validityEndDate = LocalDateTime.of(9999,12,31,11,59)
+            this.validityEndDate = LocalDateTime.of(9999, 12, 31, 11, 59)
             this.bfchgCodeGroupName = codeGroupName
             this.createdAt = now
             this.updatedAt = now
         }
-
     }
-
-
-
 }
