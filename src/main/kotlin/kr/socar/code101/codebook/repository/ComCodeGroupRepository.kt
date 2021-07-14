@@ -1,11 +1,8 @@
 package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.model.ComCodeGroup
-import kr.socar.code101.codebook.model.ComCodeGroups
-import kr.socar.code101.codebook.model.ComCodeGroups.default
-import kr.socar.code101.codebook.model.ComCodeGroups.nullable
+import kr.socar.code101.codebook.infra.ComCodeGroups
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.`java-time`.datetime
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime

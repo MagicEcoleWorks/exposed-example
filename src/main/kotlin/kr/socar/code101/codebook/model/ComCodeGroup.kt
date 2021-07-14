@@ -1,5 +1,6 @@
 package kr.socar.code101.codebook.model
 
+import kr.socar.code101.codebook.infra.ComCodeGroups
 import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID

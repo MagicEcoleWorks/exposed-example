@@ -1,21 +1,26 @@
 package kr.socar.code101.codebook.model
 
-import org.jetbrains.exposed.dao.EntityClass
+import kr.socar.code101.codebook.infra.ComCodes
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.dao.id.EntityIDFactory
-import org.jetbrains.exposed.sql.EntityIDColumnType
 import java.time.LocalDateTime
+import org.jetbrains.exposed.sql.ResultRow
 
-class ComCode(id: EntityID<Int>) : IntEntity(id){
-    companion object : IntEntityClass<ComCode>(ComCodes)
-
-    var codeGroupId by ComCodeGroup referencedOn ComCodes.codeGroupId
-    var codeId by ComCodeInfo referencedOn ComCodes.codeId
-    var useYN by ComCodes.useYN
-    var sortingNum by ComCodes.sortingNum
-    var createdAt: LocalDateTime by ComCodes.createdAt
-    var updatedAt: LocalDateTime by ComCodes.updatedAt
-
+data class ComCode(
+    val codeGroupId: String,
+    val codeId: Int,
+    val useYN: Boolean,
+    val sortingNum: Int,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
+) {
+    constructor(row: ResultRow): this(
+        codeGroupId = row[ComCodes.codeGroupId],
+        codeId = row[ComCodes.codeId],
+        useYN = row[ComCodes.useYN],
+        sortingNum = row[ComCodes.sortingNum],
+        createdAt = row[ComCodes.createdAt],
+        updatedAt = row[ComCodes.updatedAt],
+    )
 }

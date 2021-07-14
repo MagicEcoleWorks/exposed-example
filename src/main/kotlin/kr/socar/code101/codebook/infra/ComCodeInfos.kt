@@ -1,4 +1,4 @@
-package kr.socar.code101.codebook.model
+package kr.socar.code101.codebook.infra
 
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.Column

@@ -1,10 +1,11 @@
 package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.model.ComCode
-import kr.socar.code101.codebook.model.ComCodeGroup
-import kr.socar.code101.codebook.model.ComCodeInfo
-import kr.socar.code101.codebook.model.ComCodes
+import kr.socar.code101.codebook.infra.ComCodes
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.emptySized
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
@@ -13,27 +14,34 @@ import java.time.LocalDateTime
 
 @Repository
 class ComCodeRepository(private val clock: Clock) {
-    fun findAll() : List<ComCode>{
-        val query = ComCodes.selectAll()
-        return ComCode.wrapRows(query).toList()
+    fun findAll(): List<ComCode> {
+        val resultRowList: List<ResultRow> = ComCodes.selectAll().toList() // DB에서 selectAll 을 한 결과
+        val result = mutableListOf<ComCode>() // 여기서 부터 return 까지는 map 역할을 풀어서 쓴 부분
+        resultRowList.forEach { resultRow ->
+            val comCode = ComCode(resultRow)
+            result.add(comCode)
+        }
+        return result
     }
 
-    fun insert(codeGroupId: String, codeId: Int, useYN: Int, sortingNum: Int) : ComCode {
+    fun insert(codeGroupId: String, codeId: Int, useYN: Boolean, sortingNum: Int) {
         val now = LocalDateTime.now(clock)
-        return ComCode.new() {
-            /*this.codeGroupId = codeGroupId
-            this.codeId = codeId*/      //type mismatch 해결 못함
-            this.useYN = useYN
-            this.sortingNum = sortingNum
-            this.createdAt = now
-            this.updatedAt = now
+        ComCodes.insert { table ->
+            table[ComCodes.codeGroupId] = codeGroupId
+            table[ComCodes.codeId] = codeId
+            table[ComCodes.useYN] = useYN
+            table[ComCodes.sortingNum] = sortingNum
+            table[ComCodes.createdAt] = now
+            table[ComCodes.updatedAt] = now
         }
     }
 
-    fun delete(codeGroupId:String, codeId: Int): List<ComCode> {
-        val query = ComCodes.select{ ComCodes.codeGroupId eq codeGroupId and (ComCodes.codeId eq codeId)}
-        val one = ComCode.wrapRows(query).firstOrNull()
-        one?.delete()
-        return findAll()
-    }
+
+//
+//    fun delete(codeGroupId:String, codeId: Int): List<ComCode> {
+//        val query = ComCodes.select{ ComCodes.codeGroupId eq codeGroupId and (ComCodes.codeId eq codeId)}
+//        val one = ComCode.wrapRows(query).firstOrNull()
+//        one?.delete()
+//        return findAll()
+//    }
 }
