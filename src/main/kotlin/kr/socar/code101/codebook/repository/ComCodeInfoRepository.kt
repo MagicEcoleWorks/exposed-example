@@ -10,12 +10,7 @@ import java.time.LocalDateTime
 
 @Repository
 class ComCodeInfoRepository(private val clock: Clock) {
-    fun findAll(): List<ComCodeInfo> {
-        val query = ComCodeInfos.selectAll()
-        return ComCodeInfo.wrapRows(query).toList()
-    }
-
-    fun insert(codeName: String, description: String? = null): ComCodeInfo {
+    fun create(codeName: String, description: String?): ComCodeInfo {
         val now = LocalDateTime.now(clock)
         return ComCodeInfo.new {
             this.codeName = codeName
@@ -23,6 +18,15 @@ class ComCodeInfoRepository(private val clock: Clock) {
             this.createdAt = now
             this.updatedAt = now
         }
+    }
+
+    fun findByCodeName(codeName: String): ComCodeInfo? {
+        TODO("Not yet implemented")
+    }
+
+    fun findAll(): List<ComCodeInfo> {
+        val query = ComCodeInfos.selectAll()
+        return ComCodeInfo.wrapRows(query).toList()
     }
 
     fun findOne(id: Int): String? {
@@ -38,19 +42,5 @@ class ComCodeInfoRepository(private val clock: Clock) {
         one?.description = description
         one?.updatedAt = now
         return findOne(id)
-    }
-
-    fun findByCodeName(codeName: String): ComCodeInfo? {
-        TODO("Not yet implemented")
-    }
-
-    fun create(codeName: String, description: String?): ComCodeInfo {
-        val now = LocalDateTime.now(clock)
-        return ComCodeInfo.new {
-            this.codeName = codeName
-            this.description = description
-            this.createdAt = now
-            this.updatedAt = now
-        }
     }
 }
