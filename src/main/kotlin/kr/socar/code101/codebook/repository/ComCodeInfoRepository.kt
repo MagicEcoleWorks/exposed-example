@@ -43,4 +43,14 @@ class ComCodeInfoRepository(private val clock: Clock) {
     fun findByCodeName(codeName: String): ComCodeInfo? {
         TODO("Not yet implemented")
     }
+
+    fun create(codeName: String, description: String?): ComCodeInfo {
+        val now = LocalDateTime.now(clock)
+        return ComCodeInfo.new {
+            this.codeName = codeName
+            this.description = description
+            this.createdAt = now
+            this.updatedAt = now
+        }
+    }
 }

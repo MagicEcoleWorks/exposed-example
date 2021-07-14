@@ -1,5 +1,6 @@
 package kr.socar.code101.codebook.service
 
+import kr.socar.code101.codebook.dto.ApiEmptyResponse
 import kr.socar.code101.codebook.dto.CreateComCodeInfoParams
 import kr.socar.code101.codebook.dto.GetComCodeInfoParams
 import kr.socar.code101.codebook.repository.ComCodeInfoRepository
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 class ComCodeInfoServiceTest {
     @Autowired
-    lateinit var comCodeInfoService: ComCodeService
+    lateinit var comCodeInfoService: ComCodeInfoService
 
     @Autowired
     lateinit var comCodeInfoRepository: ComCodeInfoRepository
@@ -20,11 +21,12 @@ class ComCodeInfoServiceTest {
     fun createComCodeInfoParamsWithDescriptionIsNull() {
         val codeName = "테스트"
         val createComCodeInfoParamsWithDescriptionIsNull = CreateComCodeInfoParams(codeName = codeName)
-        comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionIsNull)
-        val result = comCodeInfoRepository.findByCodeName(codeName)
-        assertThat(result).isNotNull
-        assertThat(result!!.codeName).isEqualTo(codeName)
-        assertThat(result.description).isNull()
+        val result = comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionIsNull)
+        assertThat(result).isEqualTo(ApiEmptyResponse())
+        val dbResult = comCodeInfoRepository.findByCodeName(codeName)
+        assertThat(dbResult).isNotNull
+        assertThat(dbResult!!.codeName).isEqualTo(codeName)
+        assertThat(dbResult.description).isNull()
     }
 
     @Test
@@ -33,11 +35,12 @@ class ComCodeInfoServiceTest {
         val codeName = "테스트"
         val description = "테스트 설명"
         val createComCodeInfoParamsWithDescriptionExist = CreateComCodeInfoParams(codeName = codeName, description = description)
-        comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionExist)
-        val result = comCodeInfoRepository.findByCodeName(codeName)
-        assertThat(result).isNotNull
-        assertThat(result!!.codeName).isEqualTo(codeName)
-        assertThat(result.description).isEqualTo(description)
+        val result = comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionExist)
+        assertThat(result).isEqualTo(ApiEmptyResponse())
+        val dbResult = comCodeInfoRepository.findByCodeName(codeName)
+        assertThat(dbResult).isNotNull
+        assertThat(dbResult!!.codeName).isEqualTo(codeName)
+        assertThat(dbResult.description).isEqualTo(description)
     }
 
     @Test
