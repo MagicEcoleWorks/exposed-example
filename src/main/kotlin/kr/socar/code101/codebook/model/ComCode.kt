@@ -12,7 +12,7 @@ data class ComCode(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
-    constructor(row: ResultRow): this(
+    constructor(row: ResultRow) : this(
         codeGroupId = row[ComCodes.codeGroupId],
         codeId = row[ComCodes.codeId],
         useYN = row[ComCodes.useYN],

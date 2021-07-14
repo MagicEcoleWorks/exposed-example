@@ -33,7 +33,6 @@ class ComCodeRepository(private val clock: Clock) {
         }
     }
 
-
 //
 //    fun delete(codeGroupId:String, codeId: Int): List<ComCode> {
 //        val query = ComCodes.select{ ComCodes.codeGroupId eq codeGroupId and (ComCodes.codeId eq codeId)}

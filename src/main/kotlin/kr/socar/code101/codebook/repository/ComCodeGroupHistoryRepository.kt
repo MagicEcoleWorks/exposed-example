@@ -1,7 +1,7 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.model.ComCodeGroupHistory
 import kr.socar.code101.codebook.infra.ComCodeGroupHistorys
+import kr.socar.code101.codebook.model.ComCodeGroupHistory
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
@@ -15,14 +15,14 @@ class ComCodeGroupHistoryRepository(private val clock: Clock) {
     }
 
     fun insert(id: String, codeGroupName: String) {
-       val now = LocalDateTime.now(clock)
-       ComCodeGroupHistorys.insert { table ->
-           table[codeGroupId] = codeGroupId
-           table[validityStartDate] = now
-           table[validityEndDate] = LocalDateTime.MAX
-           table[bfchgCodeGroupName] = codeGroupName
-           table[createdAt] = now
-           table[updatedAt] = now
-       }
-   }
+        val now = LocalDateTime.now(clock)
+        ComCodeGroupHistorys.insert { table ->
+            table[codeGroupId] = codeGroupId
+            table[validityStartDate] = now
+            table[validityEndDate] = LocalDateTime.MAX
+            table[bfchgCodeGroupName] = codeGroupName
+            table[createdAt] = now
+            table[updatedAt] = now
+        }
+    }
 }

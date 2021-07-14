@@ -1,7 +1,7 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.model.ComCodeGroup
 import kr.socar.code101.codebook.infra.ComCodeGroups
+import kr.socar.code101.codebook.model.ComCodeGroup
 import org.jetbrains.exposed.sql.Query
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository

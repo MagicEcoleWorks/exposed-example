@@ -47,7 +47,7 @@ class CodeAdminController(
         return@transaction ComCodeInfoRepository.update(id, description)
     }
 
-    //com_code_group CRUD
+    // com_code_group CRUD
     @GetMapping("/comCodeGroupFind")
     fun comCodeGroupFind(): String = transaction(database) {
         val result = comCodeGroupRepository.findAll()
@@ -63,12 +63,10 @@ class CodeAdminController(
         return@transaction "id: ${result.id.value}, name: ${result.codeGroupName}, created: ${result.createdAt}"
     }
 
-
     // com_code CRD
     @GetMapping("/com_code/findAll")
     fun fetchComCode(): String = transaction(database) {
         return@transaction "[ " + ComCodeRepository.findAll()
             .joinToString { "{ codeGroupId: ${it.codeGroupId}, code_id:${it.codeId}, useYN: ${it.useYN}, sortingNum: ${it.sortingNum}, created:${it.createdAt}, updated:${it.updatedAt} } <br>".trimMargin() } + " ]"
     }
-
 }
