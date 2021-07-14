@@ -12,6 +12,6 @@ data class GetComCodeInfoParams(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class GetComCodeInfoResult(
-    @JsonProperty("com_code_info_list")
-    val comCodeInfoList: List<ComCodeInfo>
+    @JsonProperty("com_code_info")
+    val comCodeInfo: ComCodeInfo?
 )
