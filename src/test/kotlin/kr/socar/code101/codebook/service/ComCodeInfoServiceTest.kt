@@ -1,15 +1,20 @@
 package kr.socar.code101.codebook.service
 
+import kr.socar.code101.codebook.AbstractServiceTest
 import kr.socar.code101.codebook.dto.ApiEmptyResponse
 import kr.socar.code101.codebook.dto.CreateComCodeInfoParams
 import kr.socar.code101.codebook.dto.GetComCodeInfoParams
+import kr.socar.code101.codebook.infra.ComCodeInfos
 import kr.socar.code101.codebook.repository.ComCodeInfoRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.exposed.sql.deleteAll
+import org.jetbrains.exposed.sql.transactions.transaction
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-class ComCodeInfoServiceTest {
+class ComCodeInfoServiceTest : AbstractServiceTest() {
     @Autowired
     lateinit var comCodeInfoService: ComCodeInfoService
 
@@ -67,5 +72,12 @@ class ComCodeInfoServiceTest {
         val getComCodeInfoParams = GetComCodeInfoParams(codeName = newCodeName)
         val result = comCodeInfoService.getComCodeInfo(getComCodeInfoParams)
         assertThat(result).isNull()
+    }
+
+    @AfterEach
+    fun cleanUp() {
+        transaction(database) {
+            ComCodeInfos.deleteAll()
+        }
     }
 }

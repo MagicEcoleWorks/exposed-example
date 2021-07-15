@@ -19,6 +19,7 @@ class ComCodeInfoService(
     }
 
     fun getComCodeInfo(getComCodeInfoParams: GetComCodeInfoParams): ComCodeInfo? {
-        TODO("Not yet implemented")
+        val codeName = getComCodeInfoParams.codeName
+        return comCodeInfoRepository.findByCodeName(codeName)
     }
 }

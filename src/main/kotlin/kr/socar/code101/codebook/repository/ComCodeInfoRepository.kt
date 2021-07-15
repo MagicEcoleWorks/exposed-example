@@ -2,26 +2,39 @@ package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.infra.ComCodeInfos
 import kr.socar.code101.codebook.model.ComCodeInfo
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
 
 @Repository
-class ComCodeInfoRepository(private val clock: Clock) {
+class ComCodeInfoRepository(
+    private val clock: Clock,
+    private val database: Database
+) {
     fun create(codeName: String, description: String?): ComCodeInfo {
-        val now = LocalDateTime.now(clock)
-        return ComCodeInfo.new {
-            this.codeName = codeName
-            this.description = description
-            this.createdAt = now
-            this.updatedAt = now
+        return transaction(database) {
+            val now = LocalDateTime.now(clock)
+            ComCodeInfo.new {
+                this.codeName = codeName
+                this.description = description
+                this.createdAt = now
+                this.updatedAt = now
+            }
         }
     }
 
     fun findByCodeName(codeName: String): ComCodeInfo? {
-        TODO("Not yet implemented")
+        return transaction(database) {
+            ComCodeInfos.select {
+                ComCodeInfos.codeName eq codeName
+            }.run {
+                ComCodeInfo.wrapRows(this)
+            }.firstOrNull()
+        }
     }
 
     fun findAll(): List<ComCodeInfo> {
