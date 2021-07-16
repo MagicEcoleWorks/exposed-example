@@ -2,6 +2,7 @@ package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.infra.ComCodeInfos
 import kr.socar.code101.codebook.model.ComCodeInfo
+import kr.socar.code101.codebook.vo.ComCodeInfoVo
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
@@ -15,23 +16,22 @@ class ComCodeInfoRepository(private val clock: Clock) {
         return ComCodeInfo.wrapRows(query).toList()
     }
 
-    fun insert(codeName: String, description: String? = null): ComCodeInfo {
+    fun insert(comCodeInfoVo: ComCodeInfoVo): ComCodeInfo {
         val now = LocalDateTime.now(clock)
         return ComCodeInfo.new {
-            this.codeName = codeName
-            this.description = description
+            this.codeName = comCodeInfoVo.codeName
+            this.description = comCodeInfoVo.description
             this.createdAt = now
             this.updatedAt = now
         }
     }
 
-    fun findOne(id: Int): String? {
+    fun findOne(id: Int): ComCodeInfo? {
         val query = ComCodeInfos.select { ComCodeInfos.id eq id }
-        val one = ComCodeInfo.wrapRows(query).firstOrNull()
-        return "{code_id: " + id + ", code_name:${one?.codeName}, description:${one?.description}, created:${one?.createdAt}, updated:${one?.updatedAt}}"
+        return ComCodeInfo.wrapRows(query).firstOrNull()
     }
 
-    fun update(id: Int, description: String? = null): String? {
+    fun update(id: Int, description: String? = null): ComCodeInfo? {
         val now = LocalDateTime.now(clock)
         val query = ComCodeInfos.select { ComCodeInfos.id eq id }
         val one = ComCodeInfo.wrapRows(query).firstOrNull()
