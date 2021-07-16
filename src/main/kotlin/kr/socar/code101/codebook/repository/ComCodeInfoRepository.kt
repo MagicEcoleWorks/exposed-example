@@ -9,7 +9,7 @@ import java.time.Clock
 import java.time.LocalDateTime
 
 @Repository
-class ComCodeInfoRepository(private val clock: Clock) {
+class ComCodeInfoRepository(private val clock: Clock ) {
     val now = LocalDateTime.now(clock)
 
     fun findAll(): List<ComCodeInfo> {
