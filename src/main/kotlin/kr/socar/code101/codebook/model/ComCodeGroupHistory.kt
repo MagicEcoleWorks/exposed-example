@@ -1,17 +1,23 @@
 package kr.socar.code101.codebook.model
 
-import org.jetbrains.exposed.dao.Entity
-import org.jetbrains.exposed.dao.EntityClass
-import org.jetbrains.exposed.dao.id.EntityID
+import kr.socar.code101.codebook.infra.ComCodeGroupHistorys
+import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 
-class ComCodeGroupHistory(id: EntityID<String>) : Entity<String>(id = id) {
-    companion object : EntityClass<String, ComCodeGroupHistory>(ComCodeGroupHistorys)
-
-    var validityStartDate: LocalDateTime by ComCodeGroupHistorys.validityStartDate
-    var validityEndDate: LocalDateTime by ComCodeGroupHistorys.validityEndDate
-    var bfchgCodeGroupName: String by ComCodeGroupHistorys.bfchgCodeGroupName
-    var aftchCodeGroupName: String? by ComCodeGroupHistorys.aftchCodeGroupName
-    var createdAt: LocalDateTime by ComCodeGroupHistorys.createdAt
-    var updatedAt: LocalDateTime by ComCodeGroupHistorys.updatedAt
+class ComCodeGroupHistory(
+    val validityStartDate: LocalDateTime,
+    val validityEndDate: LocalDateTime,
+    val bfchgCodeGroupName: String,
+    val aftchCodeGroupName: String?,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
+) {
+    constructor(row: ResultRow) : this(
+        validityStartDate = row[ComCodeGroupHistorys.validityStartDate],
+        validityEndDate = row[ComCodeGroupHistorys.validityEndDate],
+        bfchgCodeGroupName = row[ComCodeGroupHistorys.bfchgCodeGroupName],
+        aftchCodeGroupName = row[ComCodeGroupHistorys.aftchCodeGroupName],
+        createdAt = row[ComCodeGroupHistorys.createdAt],
+        updatedAt = row[ComCodeGroupHistorys.updatedAt]
+    )
 }

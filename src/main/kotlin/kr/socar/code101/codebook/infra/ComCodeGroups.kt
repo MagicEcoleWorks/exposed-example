@@ -1,8 +1,5 @@
-package kr.socar.code101.codebook.model
+package kr.socar.code101.codebook.infra
 
-import kr.socar.code101.codebook.model.ComCodeInfos.default
-import kr.socar.code101.codebook.model.ComCodeInfos.nullable
-import kr.socar.code101.codebook.model.ComCodeInfos.uniqueIndex
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.sql.Column
@@ -10,7 +7,7 @@ import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.time.LocalDateTime
 
 object ComCodeGroups : IdTable<String>("com_code_group") {
-    val codeGroupId: Column<String> = varchar("code_group_id", 4)
+    val codeGroupId: Column<String> = reference("code_group_id", ComCodes.codeGroupId)
     val codeGroupName: Column<String> = varchar("code_group_name", 50).uniqueIndex()
     val upperCodeGroupId: Column<String?> = varchar("upper_code_group_id", 4).nullable().default(null)
     val codeGroupDescription: Column<String?> = varchar("code_group_description", 200).nullable().default(null)

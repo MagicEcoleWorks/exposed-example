@@ -1,7 +1,8 @@
 package kr.socar.code101.codebook.repository
 
+import kr.socar.code101.codebook.infra.ComCodeGroups
 import kr.socar.code101.codebook.model.ComCodeGroup
-import kr.socar.code101.codebook.model.ComCodeGroups
+import kr.socar.code101.codebook.vo.ComCodeGroupVo
 import org.jetbrains.exposed.sql.Query
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
@@ -15,13 +16,13 @@ class ComCodeGroupRepository(private val clock: Clock) {
         return ComCodeGroup.wrapRows(query).toList()
     }
 
-    fun insert(id: String, codeGroupName: String, upperCodeGroupId: String? = null, codeGroupDescription: String? = null): ComCodeGroup {
+    fun insert(comCodeGroupVo: ComCodeGroupVo): ComCodeGroup {
         val now = LocalDateTime.now(clock)
-        return ComCodeGroup.new(id) {
+        return ComCodeGroup.new(comCodeGroupVo.id) {
             // this.codeGroupId = codeGroupId
-            this.codeGroupName = codeGroupName
-            this.upperCodeGroupId = upperCodeGroupId
-            this.codeGroupDescription = codeGroupDescription
+            this.codeGroupName = comCodeGroupVo.codeGroupName
+            this.upperCodeGroupId = comCodeGroupVo.upperCodeGroupId
+            this.codeGroupDescription = comCodeGroupVo.codeGroupDescription
             this.createdAt = now
             this.updatedAt = now
         }
