@@ -16,6 +16,12 @@ class ComCodeGroupRepository(private val clock: Clock) {
         return ComCodeGroup.wrapRows(query).toList()
     }
 
+    fun findOne(id: String): String?{
+        val query = ComCodeGroups.select{ ComCodeGroups.id eq id}
+        val one = ComCodeGroup.wrapRows(query).firstOrNull()
+        return "{codeGroupId: "+id + ", codeGroupName: +${one?.codeGroupName}, upperCodeGroupId: +${one?.upperCodeGroupId}, codeGroupDescription: +${one?.codeGroupDescription}, created:${one?.createdAt}, updated:${one?.updatedAt}"
+    }
+
     fun insert(comCodeGroupVo: ComCodeGroupVo): ComCodeGroup {
         val now = LocalDateTime.now(clock)
         return ComCodeGroup.new(comCodeGroupVo.id) {

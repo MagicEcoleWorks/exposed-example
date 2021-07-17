@@ -13,8 +13,7 @@ import java.time.LocalDateTime
 
 @Repository
 class ComCodeInfoRepository(
-    private val clock: Clock,
-    private val database: Database
+    private val clock: Clock
 ) {
     fun insert(comCodeInfoVo: ComCodeInfoVo): ComCodeInfo {
         val now = LocalDateTime.now(clock)
