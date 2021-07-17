@@ -1,12 +1,9 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.model.ComCode
 import kr.socar.code101.codebook.infra.ComCodes
+import kr.socar.code101.codebook.model.ComCode
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.emptySized
 import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
 import java.time.Clock
@@ -35,7 +32,6 @@ class ComCodeRepository(private val clock: Clock) {
             table[ComCodes.updatedAt] = now
         }
     }
-
 
 //
 //    fun delete(codeGroupId:String, codeId: Int): List<ComCode> {

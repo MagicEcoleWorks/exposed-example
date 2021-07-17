@@ -1,13 +1,19 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.model.ComCodeGroupHistory
 import kr.socar.code101.codebook.infra.ComCodeGroupHistorys
-import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import kr.socar.code101.codebook.infra.ComCodeInfos
+import kr.socar.code101.codebook.model.ComCodeGroupHistory
+import kr.socar.code101.codebook.model.ComCodeInfo
+import kr.socar.code101.codebook.vo.ComCodeGroupHistoryVo
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
-
 
 @Repository
 class ComCodeGroupHistoryRepository(
@@ -48,4 +54,3 @@ class ComCodeGroupHistoryRepository(
         }
     }
 }
-

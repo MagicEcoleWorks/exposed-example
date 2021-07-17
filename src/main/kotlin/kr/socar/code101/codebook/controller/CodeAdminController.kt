@@ -37,12 +37,15 @@ class CodeAdminController(
          return comCodeGroupHistoryService.findEachComCodeGroupHistory(id)
      }
 
-
-    // com_code_group CR
-    @PostMapping("/com_code_group/insert")
-    fun insertComCodeGroup(
-            @RequestBody insertComCodeGroupParams : InsertComCodeGroupParams
-    ) {
+    @GetMapping("com_code_group_History/list")
+    fun fetchComCodeGroupHistory(): Any = transaction(database) {
+        return@transaction comCodeGroupHistoryRepository.findAll()
     }
 
+    @PostMapping("/com_code/new")
+    fun createNewComCode(
+        @RequestBody codeGroupID: String, id: Int, useYN: Boolean, sortingNum: Int
+    ): Unit = transaction(database) {
+        return@transaction ComCodeRepository.insert(codeGroupID, codeId = id, useYN = useYN, sortingNum = sortingNum )
+    }
 }

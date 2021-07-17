@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Import
 class CodebookApplication
 
 fun main(args: Array<String>) {
-	runApplication<CodebookApplication>(*args)
+    runApplication<CodebookApplication>(*args)
 }
