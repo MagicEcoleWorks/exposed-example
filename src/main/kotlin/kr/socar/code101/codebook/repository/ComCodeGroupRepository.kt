@@ -1,8 +1,10 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.model.ComCodeGroup
 import kr.socar.code101.codebook.infra.ComCodeGroups
-import org.jetbrains.exposed.sql.*
+import kr.socar.code101.codebook.model.ComCodeGroup
+import kr.socar.code101.codebook.vo.ComCodeGroupVo
+import org.jetbrains.exposed.sql.Query
+import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
@@ -20,13 +22,13 @@ class ComCodeGroupRepository(private val clock: Clock) {
         return "{codeGroupId: "+id + ", codeGroupName: +${one?.codeGroupName}, upperCodeGroupId: +${one?.upperCodeGroupId}, codeGroupDescription: +${one?.codeGroupDescription}, created:${one?.createdAt}, updated:${one?.updatedAt}"
     }
 
-    fun insert(id: String , codeGroupName: String, upperCodeGroupId: String?=null, codeGroupDescription: String? = null): ComCodeGroup {
+    fun insert(comCodeGroupVo: ComCodeGroupVo): ComCodeGroup {
         val now = LocalDateTime.now(clock)
-        return ComCodeGroup.new(id) {
-            this.codeGroupId = codeGroupId
-            this.codeGroupName = codeGroupName
-            this.upperCodeGroupId = upperCodeGroupId
-            this.codeGroupDescription = codeGroupDescription
+        return ComCodeGroup.new(comCodeGroupVo.id) {
+            // this.codeGroupId = codeGroupId
+            this.codeGroupName = comCodeGroupVo.codeGroupName
+            this.upperCodeGroupId = comCodeGroupVo.upperCodeGroupId
+            this.codeGroupDescription = comCodeGroupVo.codeGroupDescription
             this.createdAt = now
             this.updatedAt = now
         }

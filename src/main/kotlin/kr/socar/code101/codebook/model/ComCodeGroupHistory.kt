@@ -1,22 +1,18 @@
 package kr.socar.code101.codebook.model
 
 import kr.socar.code101.codebook.infra.ComCodeGroupHistorys
-import org.jetbrains.exposed.dao.Entity
-import org.jetbrains.exposed.dao.EntityClass
-import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 
-
 class ComCodeGroupHistory(
-    val validityStartDate : LocalDateTime,
-    val validityEndDate : LocalDateTime,
-    val bfchgCodeGroupName : String,
-    val aftchCodeGroupName : String?,
-    val createdAt : LocalDateTime,
-    val updatedAt : LocalDateTime
+    val validityStartDate: LocalDateTime,
+    val validityEndDate: LocalDateTime,
+    val bfchgCodeGroupName: String,
+    val aftchCodeGroupName: String?,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
 ) {
-    constructor(row : ResultRow): this(
+    constructor(row: ResultRow) : this(
         validityStartDate = row[ComCodeGroupHistorys.validityStartDate],
         validityEndDate = row[ComCodeGroupHistorys.validityEndDate],
         bfchgCodeGroupName = row[ComCodeGroupHistorys.bfchgCodeGroupName],
