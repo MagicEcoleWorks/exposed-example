@@ -1,12 +1,8 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.infra.ComCodeInfos
-import kr.socar.code101.codebook.model.ComCodeInfo
-import kr.socar.code101.codebook.vo.ComCodeInfoVo
-import org.jetbrains.exposed.sql.Database
+import kr.socar.code101.codebook.infra.ComCodeInfoTable
+import kr.socar.code101.codebook.model.ComCodeInfoEntity
 import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
-import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
@@ -15,27 +11,20 @@ import java.time.LocalDateTime
 class ComCodeInfoRepository(
     private val clock: Clock
 ) {
-    fun insert(comCodeInfoVo: ComCodeInfoVo): ComCodeInfo {
+    fun insert(name: String, description: String?): ComCodeInfoEntity {
         val now = LocalDateTime.now(clock)
-        return ComCodeInfo.new {
-            this.codeName = comCodeInfoVo.codeName
-            this.description = comCodeInfoVo.description
+        return ComCodeInfoEntity.new {
+            this.codeName = name
+            this.description = description
             this.createdAt = now
             this.updatedAt = now
-        }
-    }
-    
-    fun findOne(id: Int): ComCodeInfo? {
-        val query = ComCodeInfos.select { ComCodeInfos.id eq id }
-        return ComCodeInfo.wrapRows(query).firstOrNull()
+        }.also { it.flush() }
     }
 
-    fun update(id: Int, description: String? = null): ComCodeInfo? {
-        val now = LocalDateTime.now(clock)
-        val query = ComCodeInfos.select { ComCodeInfos.id eq id }
-        val one = ComCodeInfo.wrapRows(query).firstOrNull()
-        one?.description = description
-        one?.updatedAt = now
-        return findOne(id)
-    }
+    fun findById(id: Int)= ComCodeInfoEntity.findById(id)
+
+    fun findByName(name: String) = ComCodeInfoTable
+        .select { ComCodeInfoTable.codeName eq name }
+        .run { ComCodeInfoEntity.wrapRows(this) }
+        .firstOrNull()
 }

@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.time.LocalDateTime
 
-object ComCodeGroupHistorys : Table("com_code_group_history") {
+object ComCodeGroupHistoryTable : Table("com_code_group_history") {
     val codeGroupId: Column<String> = varchar("code_group_id", 4)
     val validityStartDate: Column<LocalDateTime> = datetime("code_validity_start_date")
     val validityEndDate: Column<LocalDateTime> = datetime("code_validity_end_date")

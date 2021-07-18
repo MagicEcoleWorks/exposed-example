@@ -1,25 +1,33 @@
 package kr.socar.code101.codebook.service
 
-import kr.socar.code101.codebook.dto.ApiEmptyResponse
 import kr.socar.code101.codebook.dto.CreateComCodeInfoParams
 import kr.socar.code101.codebook.dto.GetComCodeInfoParams
-import kr.socar.code101.codebook.model.ComCodeInfo
+import kr.socar.code101.codebook.model.ComCodeInfoEntity
 import kr.socar.code101.codebook.repository.ComCodeInfoRepository
+import kr.socar.code101.codebook.value.ComCode
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Service
 
 @Service
 class ComCodeInfoService(
-    private val comCodeInfoRepository: ComCodeInfoRepository
+    private val comCodeInfoRepository: ComCodeInfoRepository,
+    private val database: Database,
 ) {
-    fun createComCodeInfo(createComCodeInfoParams: CreateComCodeInfoParams): ApiEmptyResponse {
-        val codeName = createComCodeInfoParams.codeName
-        val description = createComCodeInfoParams.description
-        comCodeInfoRepository.create(codeName, description)
-        return ApiEmptyResponse()
+    fun createNew(p: CreateComCodeInfoParams) = transaction(database) {
+        comCodeInfoRepository.insert(p.codeName, p.description)
+            .run { ComCode(this) }
     }
 
-    fun getComCodeInfo(getComCodeInfoParams: GetComCodeInfoParams): ComCodeInfo? {
-        val codeName = getComCodeInfoParams.codeName
-        return comCodeInfoRepository.findByCodeName(codeName)
+    fun findById(id: Int): ComCodeInfoEntity? {
+        return transaction(database) {
+            comCodeInfoRepository.findById(id)
+        }
+    }
+
+    fun findByName(name: String): ComCodeInfoEntity? {
+        return transaction(database) {
+            comCodeInfoRepository.findByName(name)
+        }
     }
 }

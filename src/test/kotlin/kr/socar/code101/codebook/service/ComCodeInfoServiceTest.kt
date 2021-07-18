@@ -3,8 +3,7 @@ package kr.socar.code101.codebook.service
 import kr.socar.code101.codebook.AbstractServiceTest
 import kr.socar.code101.codebook.dto.ApiEmptyResponse
 import kr.socar.code101.codebook.dto.CreateComCodeInfoParams
-import kr.socar.code101.codebook.dto.GetComCodeInfoParams
-import kr.socar.code101.codebook.infra.ComCodeInfos
+import kr.socar.code101.codebook.infra.ComCodeInfoTable
 import kr.socar.code101.codebook.repository.ComCodeInfoRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
@@ -26,9 +25,9 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
     fun createComCodeInfoParamsWithDescriptionIsNull() {
         val codeName = "테스트"
         val createComCodeInfoParamsWithDescriptionIsNull = CreateComCodeInfoParams(codeName = codeName)
-        val result = comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionIsNull)
+        val result = comCodeInfoService.createNew(createComCodeInfoParamsWithDescriptionIsNull)
         assertThat(result).isEqualTo(ApiEmptyResponse())
-        val dbResult = comCodeInfoRepository.findByCodeName(codeName)
+        val dbResult = comCodeInfoRepository.findByName(codeName)
         assertThat(dbResult).isNotNull
         assertThat(dbResult!!.codeName).isEqualTo(codeName)
         assertThat(dbResult.description).isNull()
@@ -40,9 +39,9 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
         val codeName = "테스트"
         val description = "테스트 설명"
         val createComCodeInfoParamsWithDescriptionExist = CreateComCodeInfoParams(codeName = codeName, description = description)
-        val result = comCodeInfoService.createComCodeInfo(createComCodeInfoParamsWithDescriptionExist)
+        val result = comCodeInfoService.createNew(createComCodeInfoParamsWithDescriptionExist)
         assertThat(result).isEqualTo(ApiEmptyResponse())
-        val dbResult = comCodeInfoRepository.findByCodeName(codeName)
+        val dbResult = comCodeInfoRepository.findByName(codeName)
         assertThat(dbResult).isNotNull
         assertThat(dbResult!!.codeName).isEqualTo(codeName)
         assertThat(dbResult.description).isEqualTo(description)
@@ -53,10 +52,9 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
     fun getComCodeInfoTest() {
         val codeName = "테스트"
         val createComCodeInfoParams = CreateComCodeInfoParams(codeName = codeName)
-        comCodeInfoService.createComCodeInfo(createComCodeInfoParams)
+        comCodeInfoService.createNew(createComCodeInfoParams)
 
-        val getComCodeInfoParams = GetComCodeInfoParams(codeName = codeName)
-        val result = comCodeInfoService.getComCodeInfo(getComCodeInfoParams)
+        val result = comCodeInfoService.findByName(codeName)
         assertThat(result).isNotNull
         assertThat(result!!.codeName).isEqualTo(codeName)
     }
@@ -66,18 +64,17 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
     fun getComCodeInfoReturnNull() {
         val codeName = "테스트"
         val createComCodeInfoParams = CreateComCodeInfoParams(codeName = codeName)
-        comCodeInfoService.createComCodeInfo(createComCodeInfoParams)
+        comCodeInfoService.createNew(createComCodeInfoParams)
 
         val newCodeName = "새로운 테스트"
-        val getComCodeInfoParams = GetComCodeInfoParams(codeName = newCodeName)
-        val result = comCodeInfoService.getComCodeInfo(getComCodeInfoParams)
+        val result = comCodeInfoService.findByName(newCodeName)
         assertThat(result).isNull()
     }
 
     @AfterEach
     fun cleanUp() {
         transaction(database) {
-            ComCodeInfos.deleteAll()
+            ComCodeInfoTable.deleteAll()
         }
     }
 }

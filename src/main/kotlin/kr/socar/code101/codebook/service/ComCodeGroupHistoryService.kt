@@ -3,7 +3,7 @@ package kr.socar.code101.codebook.service
 import kr.socar.code101.codebook.repository.ComCodeGroupHistoryRepository
 import org.springframework.stereotype.Service
 import kr.socar.code101.codebook.dto.Result
-import kr.socar.code101.codebook.model.ComCodeGroupHistory
+import kr.socar.code101.codebook.model.ComCodeGroupHistoryEntity
 
 @Service
 class ComCodeGroupHistoryService (
@@ -14,7 +14,7 @@ class ComCodeGroupHistoryService (
         return Result.SUCCESS
     }
 
-    fun findComCodeGroupHistory(): List<ComCodeGroupHistory> {
+    fun findComCodeGroupHistory(): List<ComCodeGroupHistoryEntity> {
         return comCodeGroupHistoryRepository.findAll()
     }
 

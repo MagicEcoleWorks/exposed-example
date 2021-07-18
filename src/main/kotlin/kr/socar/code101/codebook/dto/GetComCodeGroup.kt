@@ -2,7 +2,7 @@ package kr.socar.code101.codebook.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import kr.socar.code101.codebook.model.ComCodeGroup
+import kr.socar.code101.codebook.model.ComCodeGroupEntity
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class GetComCodeGroupParams(
@@ -19,5 +19,5 @@ data class GetComCodeGroupParams(
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class GetComCodeGroupResult(
     @JsonProperty("com_code_group_list")
-    val comCodeGroupList: List<ComCodeGroup>
+    val comCodeGroupEntityList: List<ComCodeGroupEntity>
 )

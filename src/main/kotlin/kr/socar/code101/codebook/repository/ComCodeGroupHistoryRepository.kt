@@ -1,16 +1,12 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.infra.ComCodeGroupHistorys
-import org.jetbrains.exposed.sql.transactions.transaction
-import kr.socar.code101.codebook.infra.ComCodeInfos
-import kr.socar.code101.codebook.model.ComCodeGroupHistory
-import kr.socar.code101.codebook.model.ComCodeInfo
-import kr.socar.code101.codebook.vo.ComCodeGroupHistoryVo
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import kr.socar.code101.codebook.infra.ComCodeGroupHistoryTable
+import kr.socar.code101.codebook.model.ComCodeGroupHistoryEntity
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
@@ -20,14 +16,14 @@ class ComCodeGroupHistoryRepository(
         private val clock: Clock,
         private val database: Database
 ) {
-    fun findAll(): List<ComCodeGroupHistory> = transaction(database) {
-        return@transaction ComCodeGroupHistorys.selectAll().toList().map { ComCodeGroupHistory(it) }
+    fun findAll(): List<ComCodeGroupHistoryEntity> = transaction(database) {
+        return@transaction ComCodeGroupHistoryTable.selectAll().toList().map { ComCodeGroupHistoryEntity(it) }
     }
 
 
-    fun findOne(id: String): ComCodeGroupHistory = transaction(database){
-        val query = ComCodeGroupHistorys.select { ComCodeGroupHistorys.codeGroupId eq id }.first()
-        return@transaction ComCodeGroupHistory(query)
+    fun findOne(id: String): ComCodeGroupHistoryEntity = transaction(database){
+        val query = ComCodeGroupHistoryTable.select { ComCodeGroupHistoryTable.codeGroupId eq id }.first()
+        return@transaction ComCodeGroupHistoryEntity(query)
     }
 
 //    fun update(codeGroupId: String, codeVarildyStartDate : String,  codeGroupName : String) : Int {
@@ -43,7 +39,7 @@ class ComCodeGroupHistoryRepository(
     fun insert(id: String, codeGroupName: String) {
         val now = LocalDateTime.now(clock)
         transaction(database) {
-            ComCodeGroupHistorys.insert { table ->
+            ComCodeGroupHistoryTable.insert { table ->
                 table[codeGroupId] = id
                 table[validityStartDate] = now
                 table[validityEndDate] = now

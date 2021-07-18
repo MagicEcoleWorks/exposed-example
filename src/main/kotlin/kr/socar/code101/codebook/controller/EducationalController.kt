@@ -1,20 +1,24 @@
 package kr.socar.code101.codebook.controller
 
 import kr.socar.code101.codebook.dto.InsertComCodeGroupHistoryParams
-import kr.socar.code101.codebook.dto.InsertComCodeGroupParams
 import kr.socar.code101.codebook.dto.Result
-import kr.socar.code101.codebook.model.ComCodeGroupHistory
+import kr.socar.code101.codebook.model.ComCodeGroupHistoryEntity
+import kr.socar.code101.codebook.repository.ComCodeRepository
 import kr.socar.code101.codebook.service.ComCodeGroupHistoryService
 import kr.socar.code101.codebook.service.ComCodeGroupService
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.web.bind.annotation.*
 
+@Deprecated("")
 @RestController
-class CodeAdminController(
-    private val comCodeGroupHistoryService: ComCodeGroupHistoryService
-    private val comCodeGroupService: ComCodeGroupService
+class EducationalController(
+    private val comCodeGroupHistoryService: ComCodeGroupHistoryService,
+    private val comCodeRepository: ComCodeRepository,
+    private val comCodeGroupService: ComCodeGroupService,
+    private val database: Database
 ) {
-    // com_code_group_history CR
-    @PostMapping("/com_code_group_history/insert")  //C
+    @PostMapping("/com_code_group_history/insert")
     fun insertComCodeGroupHistory(
             @RequestBody insertComCodeGroupHistoryParams: InsertComCodeGroupHistoryParams
     ): Result {
@@ -26,26 +30,21 @@ class CodeAdminController(
     }
 
     @GetMapping("/com_code_group_history/find") // R - all 임시
-    fun findComCodeGroupHistory() : List<ComCodeGroupHistory> {
+    fun findComCodeGroupHistory() : List<ComCodeGroupHistoryEntity> {
         return comCodeGroupHistoryService.findComCodeGroupHistory()
     }
 
      @GetMapping("/com_code_group_history/each") //R
      fun findEachComCodeGroupHistory(
              @RequestParam id : String
-     ) : ComCodeGroupHistory {
+     ) : ComCodeGroupHistoryEntity {
          return comCodeGroupHistoryService.findEachComCodeGroupHistory(id)
      }
-
-    @GetMapping("com_code_group_History/list")
-    fun fetchComCodeGroupHistory(): Any = transaction(database) {
-        return@transaction comCodeGroupHistoryRepository.findAll()
-    }
 
     @PostMapping("/com_code/new")
     fun createNewComCode(
         @RequestBody codeGroupID: String, id: Int, useYN: Boolean, sortingNum: Int
     ): Unit = transaction(database) {
-        return@transaction ComCodeRepository.insert(codeGroupID, codeId = id, useYN = useYN, sortingNum = sortingNum )
+        return@transaction comCodeRepository.insert(codeGroupID, codeId = id, useYN = useYN, sortingNum = sortingNum )
     }
 }

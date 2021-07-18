@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.time.LocalDateTime
 
-object ComCodes : Table("com_code") {
+object ComCodeTable : Table("com_code") {
     val codeGroupId: Column<String> = varchar("code_group_id", 4)
     val codeId: Column<Int> = integer("code_id")
 
