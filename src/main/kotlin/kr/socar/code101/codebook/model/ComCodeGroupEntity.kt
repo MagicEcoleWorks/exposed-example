@@ -1,17 +1,23 @@
 package kr.socar.code101.codebook.model
 
 import kr.socar.code101.codebook.infra.ComCodeGroupTable
-import org.jetbrains.exposed.dao.Entity
-import org.jetbrains.exposed.dao.EntityClass
-import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.sql.ResultRow
+import java.time.LocalDateTime
 
-class ComCodeGroupEntity(id: EntityID<String>) : Entity<String>(id) {
-    companion object : EntityClass<String, ComCodeGroupEntity>(ComCodeGroupTable)
-
-    var codeGroupId by ComCodeGroupTable.id
-    var codeGroupName by ComCodeGroupTable.codeGroupName
-    var upperCodeGroupId by ComCodeGroupTable.upperCodeGroupId
-    var codeGroupDescription by ComCodeGroupTable.codeGroupDescription
-    var createdAt by ComCodeGroupTable.createdAt
-    var updatedAt by ComCodeGroupTable.updatedAt
+data class ComCodeGroupEntity(
+    val codeGroupId: String,
+    val codeGroupName: String,
+    val parentCodeGroupId: String?,
+    val codeGroupDescription: String?,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
+) {
+    constructor(row: ResultRow) : this(
+        codeGroupId = row[ComCodeGroupTable.codeGroupId],
+        codeGroupName = row[ComCodeGroupTable.codeGroupName],
+        parentCodeGroupId = row[ComCodeGroupTable.parentCodeGroupId],
+        codeGroupDescription = row[ComCodeGroupTable.codeGroupDescription],
+        createdAt = row[ComCodeGroupTable.createdAt],
+        updatedAt = row[ComCodeGroupTable.updatedAt],
+    )
 }

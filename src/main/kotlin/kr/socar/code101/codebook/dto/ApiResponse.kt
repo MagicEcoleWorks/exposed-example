@@ -18,7 +18,7 @@ data class ApiResponse<TResult> (
 ) : BaseApiResponse
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class ApiEmptyResponse (
+data class ApiEmptyResponse(
     @JsonProperty("result_code")
     override val resultCode: String = ResultCode.SUCCESS.code,
     @JsonProperty("result_message")

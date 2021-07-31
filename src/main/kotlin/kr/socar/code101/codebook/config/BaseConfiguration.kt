@@ -12,17 +12,4 @@ import java.time.Clock
 class BaseConfiguration {
     @Bean
     fun clock() = Clock.systemUTC()
-
-//    @Bean
-//    fun workerDispatcher(): CoroutineDispatcher {
-//        val workerExecutor = ThreadPoolExecutor(
-//            100,
-//            200,
-//            10,
-//            TimeUnit.SECONDS,
-//            LinkedBlockingQueue(),
-//            ThreadFactoryBuilder().setNameFormat("CoroutineWorker-%d").build()
-//        ).apply { allowCoreThreadTimeOut(true) }
-//        return workerExecutor.asCoroutineDispatcher()
-//    }
 }

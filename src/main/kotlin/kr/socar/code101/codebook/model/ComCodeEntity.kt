@@ -6,17 +6,19 @@ import java.time.LocalDateTime
 
 data class ComCodeEntity(
     val codeGroupId: String,
-    val codeId: Int,
-    val useYN: Boolean,
-    val sortingNum: Int,
+    val codeId: String,
+    val useYn: Boolean,
+    val description: String?,
+    val sortingNumber: Int,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
     constructor(row: ResultRow) : this(
         codeGroupId = row[ComCodeTable.codeGroupId],
         codeId = row[ComCodeTable.codeId],
-        useYN = row[ComCodeTable.useYN],
-        sortingNum = row[ComCodeTable.sortingNum],
+        useYn = row[ComCodeTable.useYn],
+        description = row[ComCodeTable.description],
+        sortingNumber = row[ComCodeTable.sortingNumber],
         createdAt = row[ComCodeTable.createdAt],
         updatedAt = row[ComCodeTable.updatedAt],
     )

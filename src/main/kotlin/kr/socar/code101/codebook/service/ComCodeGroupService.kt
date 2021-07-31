@@ -6,5 +6,4 @@ import org.springframework.stereotype.Service
 @Service
 class ComCodeGroupService(
     private val comCodeGroupRepository: ComCodeGroupRepository
-) {
-}
+)
