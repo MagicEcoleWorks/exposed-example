@@ -4,19 +4,19 @@ import kr.socar.code101.codebook.infra.ComCodeGroupHistoryTable
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 
-class ComCodeGroupHistoryEntity(
-    val validityStartDate: LocalDateTime,
-    val validityEndDate: LocalDateTime,
-    val bfchgCodeGroupName: String,
-    val aftchCodeGroupName: String?,
+data class ComCodeGroupHistoryEntity(
+    val codeGroupId: String,
+    val codeValidityStartDate: LocalDateTime,
+    val codeValidityEndDate: LocalDateTime,
+    val codeGroupName: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
     constructor(row: ResultRow) : this(
-        validityStartDate = row[ComCodeGroupHistoryTable.validityStartDate],
-        validityEndDate = row[ComCodeGroupHistoryTable.validityEndDate],
-        bfchgCodeGroupName = row[ComCodeGroupHistoryTable.bfchgCodeGroupName],
-        aftchCodeGroupName = row[ComCodeGroupHistoryTable.aftchCodeGroupName],
+        codeGroupId = row[ComCodeGroupHistoryTable.codeGroupId],
+        codeValidityStartDate = row[ComCodeGroupHistoryTable.codeValidityStartDate],
+        codeValidityEndDate = row[ComCodeGroupHistoryTable.codeValidityEndDate],
+        codeGroupName = row[ComCodeGroupHistoryTable.codeGroupName],
         createdAt = row[ComCodeGroupHistoryTable.createdAt],
         updatedAt = row[ComCodeGroupHistoryTable.updatedAt]
     )

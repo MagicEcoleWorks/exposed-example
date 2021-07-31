@@ -10,7 +10,7 @@ class ComCodeGroupEntity(id: EntityID<String>) : Entity<String>(id) {
 
     var codeGroupId by ComCodeGroupTable.id
     var codeGroupName by ComCodeGroupTable.codeGroupName
-    var upperCodeGroupId by ComCodeGroupTable.upperCodeGroupId
+    var parentCodeGroupId by ComCodeGroupTable.parentCodeGroupId
     var codeGroupDescription by ComCodeGroupTable.codeGroupDescription
     var createdAt by ComCodeGroupTable.createdAt
     var updatedAt by ComCodeGroupTable.updatedAt
