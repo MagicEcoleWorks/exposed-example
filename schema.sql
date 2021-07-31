@@ -4,7 +4,6 @@ CREATE TABLE `com_code_info` (
                                  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
                                  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
                                  PRIMARY KEY (`code_id`),
-                                    -- TODO 이건...어떻게...? 여기도 원래 UNIQUE 가 있었다.
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통코드정보|공통코드정보|';
 
 
@@ -16,7 +15,6 @@ CREATE TABLE `com_code_group` (
                                   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
                                   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시|수정일시|',
                                   PRIMARY KEY (`code_group_id`),
-                                  UNIQUE KEY `com_code_group_ux01` (`code_group_name`), -- TODO 이건...어떻게...?
                                   KEY `com_code_group_fk01` (`parent_code_group_id`),
                                   CONSTRAINT `com_code_group_fk01` FOREIGN KEY (`parent_code_group_id`) REFERENCES `com_code_group` (`code_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통코드그룹|공통 코드에 대한 그룹|';
@@ -29,7 +27,7 @@ CREATE TABLE `com_code_group_history` (
                                           `code_group_name` varchar(50) NOT NULL COMMENT '코드그룹명|코드그룹명|',
                                           `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
                                           `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시|수정일시|',
-                                          PRIMARY KEY (`code_group_id`,`code_validity_start_date`), -- TODO 이건...어떻게...?
+                                          PRIMARY KEY (`code_group_id`,`code_validity_start_date`),
                                           CONSTRAINT `com_code_group_history_fk01` FOREIGN KEY (`code_group_id`) REFERENCES `com_code_group` (`code_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통dj코드그룹이력';
 
