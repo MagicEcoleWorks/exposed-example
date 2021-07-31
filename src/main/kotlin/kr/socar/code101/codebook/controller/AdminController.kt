@@ -1,10 +1,10 @@
 package kr.socar.code101.codebook.controller
 
+import kr.socar.code101.codebook.dto.ComCodeInfoDto
 import kr.socar.code101.codebook.dto.ComCodeView
 import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
 import kr.socar.code101.codebook.dto.CreateComCodeParams
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
-import kr.socar.code101.codebook.dto.CreateNewCodeResult
 import kr.socar.code101.codebook.service.ComCodeInfoService
 import kr.socar.code101.codebook.value.CodeGroup
 import kr.socar.code101.codebook.value.ComCode
@@ -21,8 +21,8 @@ class AdminController(
     private val comCodeInfoService: ComCodeInfoService
 ) {
     @PostMapping("/admin/codes")
-    fun createNewCode(@RequestBody p: CreateNewCodeParams): CreateNewCodeResult {
-        return CreateNewCodeResult(comCodeInfoService.createNew(p))
+    fun createNewCode(@RequestBody p: CreateNewCodeParams): ComCodeInfoDto {
+        return ComCodeInfoDto(comCodeInfoService.createNew(p))
     }
 
     @PutMapping("/admin/codes/{id}")

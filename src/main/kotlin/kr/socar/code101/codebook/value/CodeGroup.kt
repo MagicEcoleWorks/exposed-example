@@ -10,5 +10,6 @@ data class CodeGroup(
         val DUMMY = CodeGroup("000", "__dummy_group__", "dummy group")
     }
 
+    // TODO 나중에 파악하고 삭제
     fun isTopLevel() = parent == null
 }
