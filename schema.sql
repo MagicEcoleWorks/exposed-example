@@ -1,9 +1,9 @@
 CREATE TABLE `com_code_info` (
-                                 `code_id` varchar(3) NOT NULL AUTO_INCREMENT COMMENT '코드ID|코드ID|',
+                                 `code_id` varchar(3) NOT NULL COMMENT '코드ID|코드ID|',
                                  `code_name` varchar(64) NOT NULL COMMENT '코드명|코드명|',
                                  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
                                  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '생성일시|생성일시|',
-                                 PRIMARY KEY (`code_id`),
+                                 PRIMARY KEY (`code_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='공통코드정보|공통코드정보|';
 
 
