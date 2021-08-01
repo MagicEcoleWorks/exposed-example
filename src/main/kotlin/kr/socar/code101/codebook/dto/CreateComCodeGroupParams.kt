@@ -9,12 +9,12 @@ data class CreateComCodeGroupParams(
     @JsonProperty("code_group_id")
     val codeGroupId: String,
     // 상위코드그룹ID
-    @JsonProperty("upper_code_group_id")
-    val upperCodeGroupId: String? = null,
+    @JsonProperty("parent_code_group_id")
+    val parentCodeGroupId: String? = null,
     // 코드그룹명
     @JsonProperty("code_group_name")
     val codeGroupName: String,
     // 코드그룹설명
-    @JsonProperty("code_group_description")
-    val codeGroupDescription: String? = null
+    @JsonProperty("description")
+    val description: String? = null
 )
