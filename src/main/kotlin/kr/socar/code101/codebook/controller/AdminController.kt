@@ -44,8 +44,7 @@ class AdminController(
     @GetMapping("/admin/groups/findAll")
     fun findAll() : List<ComCodeGroupDto> {
         // read
-        val result = comCodeGroupService.findAll()
-        return result.map { ComCodeGroupDto(it) }
+        return comCodeGroupService.findAll().map { ComCodeGroupDto(it) }
     }
 
     @PostMapping("/admin/groups/update")
