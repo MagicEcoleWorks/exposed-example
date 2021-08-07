@@ -33,7 +33,6 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
 
     @Test
     fun getTest() {
-        //val result = comCodeInfoService.getAll()
-
+        // val result = comCodeInfoService.getAll()
     }
 }
