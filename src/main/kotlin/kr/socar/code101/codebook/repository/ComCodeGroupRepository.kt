@@ -1,8 +1,11 @@
 package kr.socar.code101.codebook.repository
 
+import kr.socar.code101.codebook.dto.ComCodeGroupDto
 import kr.socar.code101.codebook.infra.ComCodeGroupTable
 import kr.socar.code101.codebook.model.ComCodeGroupEntity
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.update
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
@@ -13,19 +16,39 @@ class ComCodeGroupRepository(
 ) {
     fun insert(
         codeGroupId: String,
-        codeGroupName : String,
-        parentCodeGroupId : String?,
-        description : String?
-    ) : ComCodeGroupEntity {
+        codeGroupName: String,
+        parentCodeGroupId: String?,
+        description: String?
+    ): ComCodeGroupEntity {
         val now = LocalDateTime.now(clock)
         ComCodeGroupTable.insert { table ->
             table[ComCodeGroupTable.codeGroupId] = codeGroupId
             table[ComCodeGroupTable.codeGroupName] = codeGroupName
             table[ComCodeGroupTable.parentCodeGroupId] = parentCodeGroupId
             table[ComCodeGroupTable.description] = description
-            table[ComCodeGroupTable.createdAt] = createdAt
-            table[ComCodeGroupTable.updatedAt] = updatedAt
+            table[ComCodeGroupTable.createdAt] = now
+            table[ComCodeGroupTable.updatedAt] = now
         }
-        return ComCodeGroupEntity(codeGroupId, codeGroupName, parentCodeGroupId, description, now, now)
+
+        return ComCodeGroupTable.select { ComCodeGroupTable.codeGroupId eq codeGroupId }
+            .first()
+            .run { ComCodeGroupEntity(this) }
+    }
+
+
+    fun update(
+        codeGroupId: String,
+        description: String
+    ): Int {
+        return ComCodeGroupTable.update({ComCodeGroupTable.codeGroupId eq codeGroupId}) { table ->
+            table[ComCodeGroupTable.description] = description
+            table[ComCodeGroupTable.updatedAt] = LocalDateTime.now(clock)
+        }
+    }
+
+    fun findById(codeGroupId: String): ComCodeGroupEntity? {
+        return ComCodeGroupTable.select { ComCodeGroupTable.codeGroupId eq codeGroupId }
+                .firstOrNull()
+                ?.run { ComCodeGroupEntity(this) }
     }
 }
