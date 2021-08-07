@@ -5,7 +5,6 @@ import kr.socar.code101.codebook.dto.ComCodeView
 import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
 import kr.socar.code101.codebook.dto.CreateComCodeParams
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
-import kr.socar.code101.codebook.model.ComCodeInfoEntity
 import kr.socar.code101.codebook.service.ComCodeInfoService
 import kr.socar.code101.codebook.value.CodeGroup
 import kr.socar.code101.codebook.value.ComCode
@@ -23,18 +22,12 @@ class AdminController(
 ) {
     @PostMapping("/admin/codes")
     fun createNewCode(@RequestBody p: CreateNewCodeParams): ComCodeInfoDto {
-        return ComCodeInfoDto(comCodeInfoService.createNew(p))
+        return comCodeInfoService.createNewCode(p)
     }
 
     @PutMapping("/admin/codes/all")
     fun getCode(): List<ComCodeInfoDto> {
-        val resultRowList: List<ComCodeInfoEntity> = comCodeInfoService.getAll().toList()
-        val result = mutableListOf<ComCodeInfoDto>()
-        resultRowList.forEach { comCodeInfoEntity ->
-            val comCodeInfoDto = ComCodeInfoDto(comCodeInfoEntity)
-            result.add(comCodeInfoDto)
-        }
-        return result
+        return comCodeInfoService.getCode()
     }
 
     @PostMapping("/admin/groups")
