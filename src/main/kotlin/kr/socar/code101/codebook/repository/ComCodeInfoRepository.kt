@@ -25,16 +25,6 @@ class ComCodeInfoRepository(
     }
 
     fun findAll(): List<ComCodeInfoEntity> {
-        val resultRowList: List<ResultRow> = ComCodeInfoTable.selectAll().toList()
-        val result = mutableListOf<ComCodeInfoEntity>()
-        resultRowList.forEach { resultRow ->
-            val comCodeInfoEntity = ComCodeInfoEntity(resultRow)
-            result.add(comCodeInfoEntity)
-        }
-        return result
+        return ComCodeInfoTable.selectAll().toList().map { ComCodeInfoEntity(it) }
     }
-
-/*   fun findAll() : List<ComCodeInfoEntity> {
-        return ComCodeInfoTable.selectAll().toList().map { ComCodeInfoEntity(this) }
-    }*/
 }
