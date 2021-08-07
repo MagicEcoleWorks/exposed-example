@@ -1,10 +1,10 @@
 package kr.socar.code101.codebook.repository
 
-import kr.socar.code101.codebook.dto.ComCodeGroupDto
 import kr.socar.code101.codebook.infra.ComCodeGroupTable
 import kr.socar.code101.codebook.model.ComCodeGroupEntity
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.update
 import org.springframework.stereotype.Repository
 import java.time.Clock
@@ -35,6 +35,11 @@ class ComCodeGroupRepository(
             .run { ComCodeGroupEntity(this) }
     }
 
+    fun findAll(): List<ComCodeGroupEntity> {
+        val result = ComCodeGroupTable.selectAll()
+        val resultRows = result.toList()
+        return resultRows.map { ComCodeGroupEntity(it) }
+    }
 
     fun update(
         codeGroupId: String,

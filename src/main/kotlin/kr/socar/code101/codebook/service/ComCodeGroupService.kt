@@ -17,8 +17,8 @@ class ComCodeGroupService(
         return@transaction comCodeGroupRepository.insert(p.codeGroupId, p.codeGroupName, p.parentCodeGroupId, p.description)
     }
 
-    fun findCodeGroup() = transaction(database) {
-        return@transaction comCodeGroupRepository.find()
+    fun findAll() = transaction(database) {
+        comCodeGroupRepository.findAll()
     }
 
     fun modifyGroup(p: ModifyComCodeGroupParams) = transaction(database) {
