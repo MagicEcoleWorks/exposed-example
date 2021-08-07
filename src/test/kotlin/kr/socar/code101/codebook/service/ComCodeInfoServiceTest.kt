@@ -30,4 +30,10 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
             ComCodeInfoTable.deleteAll()
         }
     }
+
+    @Test
+    fun getTest() {
+        //val result = comCodeInfoService.getAll()
+
+    }
 }

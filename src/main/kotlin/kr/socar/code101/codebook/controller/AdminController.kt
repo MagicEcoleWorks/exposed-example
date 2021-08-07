@@ -5,9 +5,11 @@ import kr.socar.code101.codebook.dto.ComCodeView
 import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
 import kr.socar.code101.codebook.dto.CreateComCodeParams
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
+import kr.socar.code101.codebook.model.ComCodeInfoEntity
 import kr.socar.code101.codebook.service.ComCodeInfoService
 import kr.socar.code101.codebook.value.CodeGroup
 import kr.socar.code101.codebook.value.ComCode
+import org.jetbrains.exposed.sql.ResultRow
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -25,9 +27,15 @@ class AdminController(
         return ComCodeInfoDto(comCodeInfoService.createNew(p))
     }
 
-    @PutMapping("/admin/codes/{id}")
-    fun renameCode(/* TODO: requestBody with code name, code description */): ComCode {
-        return ComCode.DUMMY
+    @PutMapping("/admin/codes/all")
+    fun getCode(): List<ComCodeInfoDto> {
+        val resultRowList : List<ComCodeInfoEntity> = comCodeInfoService.getAll().toList()
+        val result = mutableListOf<ComCodeInfoDto>()
+        resultRowList.forEach { comCodeInfoEntity ->
+            val comCodeInfoDto = ComCodeInfoDto(comCodeInfoEntity)
+            result.add(comCodeInfoDto)
+        }
+        return result
     }
 
     @PostMapping("/admin/groups")
