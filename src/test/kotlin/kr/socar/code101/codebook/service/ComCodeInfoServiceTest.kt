@@ -18,10 +18,29 @@ class ComCodeInfoServiceTest : AbstractServiceTest() {
     fun createNewTest() {
         val codeId = "001"
         val codeName = "테스트"
-        val createComCodeInfoParamsWithDescriptionIsNull = CreateNewCodeParams(codeId = codeId, codeName = codeName)
-        val result = comCodeInfoService.createNew(createComCodeInfoParamsWithDescriptionIsNull)
+        val createComCodeInfoParams = CreateNewCodeParams(codeId = codeId, codeName = codeName)
+        val result = comCodeInfoService.createNewCode(createComCodeInfoParams)
         assertThat(result.codeId).isEqualTo(codeId)
         assertThat(result.codeName).isEqualTo(codeName)
+    }
+
+    @Test
+    fun getTest() {
+        // given
+        val codeIdList = listOf("001", "002")
+        val codeNameList = listOf("테스트001", "테스트002")
+        (0..1).forEach {
+            val p = CreateNewCodeParams(codeId = codeIdList[it], codeName = codeNameList[it])
+            comCodeInfoService.createNewCode(p)
+        }
+
+        // when
+        val result = comCodeInfoService.getCode()
+
+        // then
+        assertThat(result).hasSize(2)
+        assertThat(result.map { it.codeId }).containsExactlyInAnyOrderElementsOf(codeIdList)
+        assertThat(result.map { it.codeName }).containsExactlyInAnyOrderElementsOf(codeNameList)
     }
 
     @AfterEach

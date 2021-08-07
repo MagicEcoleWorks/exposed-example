@@ -22,12 +22,12 @@ class AdminController(
 ) {
     @PostMapping("/admin/codes")
     fun createNewCode(@RequestBody p: CreateNewCodeParams): ComCodeInfoDto {
-        return ComCodeInfoDto(comCodeInfoService.createNew(p))
+        return comCodeInfoService.createNewCode(p)
     }
 
-    @PutMapping("/admin/codes/{id}")
-    fun renameCode(/* TODO: requestBody with code name, code description */): ComCode {
-        return ComCode.DUMMY
+    @PutMapping("/admin/codes/all")
+    fun getCode(): List<ComCodeInfoDto> {
+        return comCodeInfoService.getCode()
     }
 
     @PostMapping("/admin/groups")

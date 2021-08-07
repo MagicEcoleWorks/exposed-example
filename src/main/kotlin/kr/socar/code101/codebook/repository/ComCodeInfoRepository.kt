@@ -3,6 +3,7 @@ package kr.socar.code101.codebook.repository
 import kr.socar.code101.codebook.infra.ComCodeInfoTable
 import kr.socar.code101.codebook.model.ComCodeInfoEntity
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository
 import java.time.Clock
 import java.time.LocalDateTime
@@ -20,5 +21,9 @@ class ComCodeInfoRepository(
             table[ComCodeInfoTable.updatedAt] = now
         }
         return ComCodeInfoEntity(codeId, codeName, now, now)
+    }
+
+    fun findAll(): List<ComCodeInfoEntity> {
+        return ComCodeInfoTable.selectAll().toList().map { ComCodeInfoEntity(it) }
     }
 }

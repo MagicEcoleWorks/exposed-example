@@ -1,5 +1,6 @@
 package kr.socar.code101.codebook.service
 
+import kr.socar.code101.codebook.dto.ComCodeInfoDto
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
 import kr.socar.code101.codebook.repository.ComCodeInfoRepository
 import org.jetbrains.exposed.sql.Database
@@ -11,7 +12,11 @@ class ComCodeInfoService(
     private val comCodeInfoRepository: ComCodeInfoRepository,
     private val database: Database,
 ) {
-    fun createNew(p: CreateNewCodeParams) = transaction(database) {
-        return@transaction comCodeInfoRepository.insert(p.codeId, p.codeName)
+    fun createNewCode(p: CreateNewCodeParams) = transaction(database) {
+        ComCodeInfoDto(comCodeInfoRepository.insert(p.codeId, p.codeName))
+    }
+
+    fun getCode() = transaction(database) {
+        comCodeInfoRepository.findAll().map { ComCodeInfoDto(it) }
     }
 }
