@@ -27,7 +27,8 @@ class ComCodeGroupServiceTest : AbstractCodebookTest() {
         )
 
         val result = comCodeGroupService.createCodeGroup(createComCodeGroupParams)
-        assertThat(result.codeGroupId).isEqualTo(codeGroupId)
+        assertThat(result).isNotNull
+        assertThat(result!!.codeGroupId).isEqualTo(codeGroupId)
         assertThat(result.codeGroupName).isEqualTo(codeGroupName)
         assertThat(result.description).isEqualTo(description)
     }

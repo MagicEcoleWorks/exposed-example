@@ -1,9 +1,12 @@
 package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.AbstractCodebookTest
+import kr.socar.code101.codebook.infra.ComCodeGroupTable
 import org.junit.jupiter.api.Test
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.junit.jupiter.api.AfterEach
 import support.MockClock
 
 class ComCodeGroupRepositoryTest : AbstractCodebookTest() {
@@ -18,21 +21,45 @@ class ComCodeGroupRepositoryTest : AbstractCodebookTest() {
                 parentCodeGroupId = null,
                 description = "설명"
             )
-            val find = repository.findById("1")!!
-            assertThat(find.codeGroupId).isEqualTo("1")
-            assertThat(find.parentCodeGroupId).isEqualTo(null)
+            val result = repository.findById("1")
+            assertThat(result).isNotNull
+            assertThat(result!!.codeGroupId).isEqualTo("1")
+            assertThat(result.parentCodeGroupId).isEqualTo(null)
         }
     }
 
     @Test
     fun updateGroupRepository() {
         transaction(database) {
+            val codeGroupId = "1"
+            val originalDescription = "test"
+            val newDescription = "변경"
+            repository.insert(
+                codeGroupId = codeGroupId,
+                codeGroupName = "update test",
+                parentCodeGroupId = null,
+                description = originalDescription
+            )
+
+            val originResult = repository.findById(codeGroupId)
+            assertThat(originResult).isNotNull
+            assertThat(originResult!!.description).isEqualTo(originalDescription)
+
             repository.update(
                 codeGroupId = "1",
-                description = "변경"
+                description = newDescription
             )
-            val find = repository.findById("1")!!
-            assertThat(find.description).isEqualTo("변경")
+
+            val newResult = repository.findById(codeGroupId)
+            assertThat(newResult).isNotNull
+            assertThat(newResult!!.description).isEqualTo(newDescription)
+        }
+    }
+
+    @AfterEach
+    fun cleanUp() {
+        transaction {
+            ComCodeGroupTable.deleteAll()
         }
     }
 }

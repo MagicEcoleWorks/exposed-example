@@ -19,7 +19,7 @@ class ComCodeGroupRepository(
         codeGroupName: String,
         parentCodeGroupId: String?,
         description: String?
-    ): ComCodeGroupEntity {
+    ) {
         val now = LocalDateTime.now(clock)
         ComCodeGroupTable.insert { table ->
             table[ComCodeGroupTable.codeGroupId] = codeGroupId
@@ -29,10 +29,6 @@ class ComCodeGroupRepository(
             table[ComCodeGroupTable.createdAt] = now
             table[ComCodeGroupTable.updatedAt] = now
         }
-
-        return ComCodeGroupTable.select { ComCodeGroupTable.codeGroupId eq codeGroupId }
-            .first()
-            .run { ComCodeGroupEntity(this) }
     }
 
     fun findAll(): List<ComCodeGroupEntity> {
