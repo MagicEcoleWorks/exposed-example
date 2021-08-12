@@ -1,6 +1,6 @@
 package kr.socar.code101.codebook.service
 
-import kr.socar.code101.codebook.AbstractServiceTest
+import kr.socar.code101.codebook.AbstractCodebookTest
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
 import kr.socar.code101.codebook.infra.ComCodeInfoTable
 import org.assertj.core.api.Assertions.assertThat
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
-class ComCodeInfoServiceTest : AbstractServiceTest() {
+class ComCodeInfoServiceTest : AbstractCodebookTest() {
     @Autowired
     lateinit var comCodeInfoService: ComCodeInfoService
 

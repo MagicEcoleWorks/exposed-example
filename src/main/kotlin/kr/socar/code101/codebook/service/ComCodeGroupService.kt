@@ -3,6 +3,7 @@ package kr.socar.code101.codebook.service
 import kr.socar.code101.codebook.dto.ComCodeGroupDto
 import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
 import kr.socar.code101.codebook.dto.ModifyComCodeGroupParams
+
 import kr.socar.code101.codebook.repository.ComCodeGroupRepository
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -29,5 +30,9 @@ class ComCodeGroupService(
         comCodeGroupRepository.update(codeGroupId, description)
         // 3. 업데이트한 codeGroupId 를 이용해 repository 에서 찾아 리턴
         return@transaction comCodeGroupRepository.findById(codeGroupId)?.let { ComCodeGroupDto(it) } // 수정
+    }
+
+    fun findById(codeGroupId: String) = transaction(database) {
+        comCodeGroupRepository.findById(codeGroupId = codeGroupId)
     }
 }
