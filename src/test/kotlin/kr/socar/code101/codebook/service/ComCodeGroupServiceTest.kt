@@ -37,14 +37,20 @@ class ComCodeGroupServiceTest : AbstractCodebookTest() {
     fun modifyGroupNewTest() {
         val codeGroupId = "002"
         val codeGroupName = "B"
-        val description = "설명설명설명설명설명"
-        comCodeGroupService.createCodeGroup(CreateComCodeGroupParams(
-            codeGroupId = codeGroupId,
-            codeGroupName = codeGroupName,
-            description = description
-        ))
+        val originDescription = "설명수정전"
+        val newDescription = "설명수정후"
+        comCodeGroupService.createCodeGroup(
+            CreateComCodeGroupParams(
+                codeGroupId = codeGroupId,
+                codeGroupName = codeGroupName,
+                description = originDescription
+            )
+        )
 
-        val newDescription = "설명수정로직"
+        val originResult = comCodeGroupService.findById(codeGroupId)
+        assertThat(originResult).isNotNull
+        assertThat(originResult!!.description).isEqualTo(originDescription)
+
         val modifyComCodeGroupParams = ModifyComCodeGroupParams(
             codeGroupId = codeGroupId,
             description = newDescription
@@ -56,7 +62,6 @@ class ComCodeGroupServiceTest : AbstractCodebookTest() {
         assertThat(result).isNotNull
         assertThat(result!!.description).isEqualTo(newDescription)
     }
-
 
     @AfterEach
     fun cleanUp() {
