@@ -37,9 +37,9 @@ class AdminController(
     }
 
     @PostMapping("/admin/groups")
-    fun createNewGroup(@RequestBody p: CreateComCodeGroupParams): ComCodeGroupDto? {
+    fun createNewGroup(@RequestBody p: CreateComCodeGroupParams): ComCodeGroupEntity? {
         // create
-        return comCodeGroupService.createCodeGroup(p)?.let { ComCodeGroupDto(it) }
+        return comCodeGroupService.createCodeGroup(p)
     }
 
     @GetMapping("/admin/groups/findAll")
