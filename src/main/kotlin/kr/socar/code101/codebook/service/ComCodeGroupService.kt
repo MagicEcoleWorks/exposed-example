@@ -34,4 +34,3 @@ class ComCodeGroupService(
         comCodeGroupRepository.findById(codeGroupId = codeGroupId)
     }
 }
-

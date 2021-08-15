@@ -2,11 +2,11 @@ package kr.socar.code101.codebook.repository
 
 import kr.socar.code101.codebook.AbstractCodebookTest
 import kr.socar.code101.codebook.infra.ComCodeGroupTable
-import org.junit.jupiter.api.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import support.MockClock
 
 class ComCodeGroupRepositoryTest : AbstractCodebookTest() {

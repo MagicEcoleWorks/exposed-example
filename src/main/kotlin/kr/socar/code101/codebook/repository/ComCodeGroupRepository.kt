@@ -41,7 +41,7 @@ class ComCodeGroupRepository(
         codeGroupId: String,
         description: String
     ): Int {
-        return ComCodeGroupTable.update({ComCodeGroupTable.codeGroupId eq codeGroupId}) { table ->
+        return ComCodeGroupTable.update({ ComCodeGroupTable.codeGroupId eq codeGroupId }) { table ->
             table[ComCodeGroupTable.description] = description
             table[ComCodeGroupTable.updatedAt] = LocalDateTime.now(clock)
         }
@@ -49,7 +49,7 @@ class ComCodeGroupRepository(
 
     fun findById(codeGroupId: String): ComCodeGroupEntity? {
         return ComCodeGroupTable.select { ComCodeGroupTable.codeGroupId eq codeGroupId }
-                .firstOrNull()
-                ?.run { ComCodeGroupEntity(this) }
+            .firstOrNull()
+            ?.run { ComCodeGroupEntity(this) }
     }
 }

@@ -7,6 +7,7 @@ import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
 import kr.socar.code101.codebook.dto.CreateComCodeParams
 import kr.socar.code101.codebook.dto.CreateNewCodeParams
 import kr.socar.code101.codebook.dto.ModifyComCodeGroupParams
+import kr.socar.code101.codebook.model.ComCodeGroupEntity
 import kr.socar.code101.codebook.service.ComCodeGroupService
 import kr.socar.code101.codebook.service.ComCodeInfoService
 import kr.socar.code101.codebook.value.CodeGroup
@@ -42,14 +43,13 @@ class AdminController(
     }
 
     @GetMapping("/admin/groups/findAll")
-    fun findAll() : List<ComCodeGroupDto> {
+    fun findAll(): List<ComCodeGroupEntity> {
         // read
-        return comCodeGroupService.findAll().map { ComCodeGroupDto(it) }
+        return comCodeGroupService.findAll()
     }
 
     @PostMapping("/admin/groups/update")
     fun modifyGroup(@RequestBody p: ModifyComCodeGroupParams): ComCodeGroupDto? {
-        // TODO params 타입을 새로 추가 - codeGroupId, description
         return comCodeGroupService.modifyGroup(p)
     }
 
