@@ -8,7 +8,7 @@ data class ComCodeGroupEntity(
     val codeGroupId: String,
     val codeGroupName: String,
     val parentCodeGroupId: String?,
-    val codeGroupDescription: String?,
+    val description: String?,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
@@ -16,7 +16,7 @@ data class ComCodeGroupEntity(
         codeGroupId = row[ComCodeGroupTable.codeGroupId],
         codeGroupName = row[ComCodeGroupTable.codeGroupName],
         parentCodeGroupId = row[ComCodeGroupTable.parentCodeGroupId],
-        codeGroupDescription = row[ComCodeGroupTable.codeGroupDescription],
+        description = row[ComCodeGroupTable.description],
         createdAt = row[ComCodeGroupTable.createdAt],
         updatedAt = row[ComCodeGroupTable.updatedAt],
     )

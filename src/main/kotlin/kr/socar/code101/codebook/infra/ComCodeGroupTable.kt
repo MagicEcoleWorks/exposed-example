@@ -10,7 +10,7 @@ object ComCodeGroupTable : Table("com_code_group") {
     val codeGroupName: Column<String> = varchar("code_group_name", 100)
     val parentCodeGroupId: Column<String?> =
         (varchar("parent_code_group_id", 4) references codeGroupId).nullable().default(null)
-    val codeGroupDescription: Column<String?> = varchar("code_group_description", 200).nullable().default(null)
+    val description: Column<String?> = varchar("description", 200).nullable().default(null)
     val createdAt: Column<LocalDateTime> = datetime("created_at")
     val updatedAt: Column<LocalDateTime> = datetime("updated_at")
 
