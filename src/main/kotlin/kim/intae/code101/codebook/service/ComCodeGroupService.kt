@@ -1,10 +1,10 @@
 package kim.intae.code101.codebook.service
 
-import kr.socar.code101.codebook.dto.ComCodeGroupDto
-import kr.socar.code101.codebook.dto.CreateComCodeGroupParams
-import kr.socar.code101.codebook.dto.ModifyComCodeGroupParams
-import kr.socar.code101.codebook.model.ComCodeGroupEntity
-import kr.socar.code101.codebook.repository.ComCodeGroupRepository
+import kim.intae.code101.codebook.dto.ComCodeGroupDto
+import kim.intae.code101.codebook.dto.CreateComCodeGroupParams
+import kim.intae.code101.codebook.dto.ModifyComCodeGroupParams
+import kim.intae.code101.codebook.model.ComCodeGroupEntity
+import kim.intae.code101.codebook.repository.ComCodeGroupRepository
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Service

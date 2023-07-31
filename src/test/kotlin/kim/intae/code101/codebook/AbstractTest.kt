@@ -1,9 +1,9 @@
 package kim.intae.code101.codebook
 
-import kr.socar.code101.codebook.infra.ComCodeGroupHistoryTable
-import kr.socar.code101.codebook.infra.ComCodeGroupTable
-import kr.socar.code101.codebook.infra.ComCodeInfoTable
-import kr.socar.code101.codebook.infra.ComCodeTable
+import kim.intae.code101.codebook.infra.ComCodeGroupHistoryTable
+import kim.intae.code101.codebook.infra.ComCodeGroupTable
+import kim.intae.code101.codebook.infra.ComCodeInfoTable
+import kim.intae.code101.codebook.infra.ComCodeTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction

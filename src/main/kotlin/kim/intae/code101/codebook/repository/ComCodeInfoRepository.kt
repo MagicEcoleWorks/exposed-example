@@ -1,7 +1,7 @@
 package kim.intae.code101.codebook.repository
 
-import kr.socar.code101.codebook.infra.ComCodeInfoTable
-import kr.socar.code101.codebook.model.ComCodeInfoEntity
+import kim.intae.code101.codebook.infra.ComCodeInfoTable
+import kim.intae.code101.codebook.model.ComCodeInfoEntity
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
 import org.springframework.stereotype.Repository

@@ -1,8 +1,8 @@
 package kim.intae.code101.codebook.service
 
-import kr.socar.code101.codebook.AbstractCodebookTest
-import kr.socar.code101.codebook.dto.CreateNewCodeParams
-import kr.socar.code101.codebook.infra.ComCodeInfoTable
+import kim.intae.code101.codebook.AbstractCodebookTest
+import kim.intae.code101.codebook.dto.CreateNewCodeParams
+import kim.intae.code101.codebook.infra.ComCodeInfoTable
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction

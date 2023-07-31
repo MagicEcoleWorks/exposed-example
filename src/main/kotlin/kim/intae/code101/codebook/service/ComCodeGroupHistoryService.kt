@@ -1,6 +1,6 @@
 package kim.intae.code101.codebook.service
 
-import kr.socar.code101.codebook.repository.ComCodeGroupHistoryRepository
+import kim.intae.code101.codebook.repository.ComCodeGroupHistoryRepository
 import org.springframework.stereotype.Service
 
 @Service

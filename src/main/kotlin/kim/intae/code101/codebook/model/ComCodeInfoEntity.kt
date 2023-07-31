@@ -1,6 +1,6 @@
 package kim.intae.code101.codebook.model
 
-import kr.socar.code101.codebook.infra.ComCodeInfoTable
+import kim.intae.code101.codebook.infra.ComCodeInfoTable
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 

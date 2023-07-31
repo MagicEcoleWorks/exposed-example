@@ -1,7 +1,7 @@
 package kim.intae.code101.codebook.repository
 
-import kr.socar.code101.codebook.infra.ComCodeGroupTable
-import kr.socar.code101.codebook.model.ComCodeGroupEntity
+import kim.intae.code101.codebook.infra.ComCodeGroupTable
+import kim.intae.code101.codebook.model.ComCodeGroupEntity
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll

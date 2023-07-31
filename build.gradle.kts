@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.4.31"
 }
 
-group = "kr.socar.code101"
+group = "kim.intae.code101"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

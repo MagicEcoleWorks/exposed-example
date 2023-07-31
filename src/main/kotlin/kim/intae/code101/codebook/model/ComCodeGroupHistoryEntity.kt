@@ -1,6 +1,6 @@
 package kim.intae.code101.codebook.model
 
-import kr.socar.code101.codebook.infra.ComCodeGroupHistoryTable
+import kim.intae.code101.codebook.infra.ComCodeGroupHistoryTable
 import org.jetbrains.exposed.sql.ResultRow
 import java.time.LocalDateTime
 

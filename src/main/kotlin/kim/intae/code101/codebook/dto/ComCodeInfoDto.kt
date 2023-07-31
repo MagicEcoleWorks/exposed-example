@@ -1,6 +1,6 @@
 package kim.intae.code101.codebook.dto
 
-import kr.socar.code101.codebook.model.ComCodeInfoEntity
+import kim.intae.code101.codebook.model.ComCodeInfoEntity
 import java.time.format.DateTimeFormatter
 
 data class ComCodeInfoDto(
